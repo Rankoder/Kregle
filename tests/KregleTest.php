@@ -105,63 +105,12 @@ class KregleTest extends TestCase
         $this->assertEquals([3, 5], $kregle->podajWynikiRzutow());
     }
     
-    public function testZakladaZe_WynikiCzterechRzutowZostanaZwroconeJakoWynikDwochTur()
-    {        
+    function testZakladaZe_wynikJednejTuryZostanieZwrocony()
+    {
         $kregle = new Kregle();
-        $kregle->rzut(3);
-        $kregle->rzut(5);
-        $kregle->rzut(3);
-        $kregle->rzut(5);
-            
-        $this->assertEquals([8, 8], $kregle->podajWynikiTur());
-    }
-    
-    public function testZakladaZe_WynikdrugiejTuryToBedzieStrike()
-    {        
-        $kregle = new Kregle();
-        $kregle->rzut(3);
-        $kregle->rzut(5);
-        $kregle->rzut(10);
-             
-        $this->assertEquals([8, 'strike'], $kregle->podajWynikiTur());
-    }
-    
-    public function testZakladaZe_WyniktrzeciejTuryToBedzieSpare()
-    {        
-        $kregle = new Kregle();
-        $kregle->rzut(3);
-        $kregle->rzut(5);
-        $kregle->rzut(10);
-        $kregle->rzut(4);
-        $kregle->rzut(6);
-   
-        $this->assertEquals([8, 'strike', 'spare'], $kregle->podajWynikiTur());
-    }
-    
-    public function testZakladaZe_PoWyrzuceniuStrikeOtrzymamydziesiecPunktowPlusPunktyZdwochKolejnychTur()
-    {        
-        $kregle = new Kregle();
-        $kregle->rzut(10);
-        $kregle->rzut(3);
-        $kregle->rzut(2);
-        $kregle->rzut(5);
-        $kregle->rzut(2);
-             
-        
-        $this->assertEquals(22, $kregle->podajWynikMeczu());
-    }
-    
-    public function testZakladaZe_PoWyrzuceniuDwochStirkeowPodRzadOtrzymamyPiedziesiatDwaPunkty()
-    {        
-        $kregle = new Kregle();
-        $kregle->rzut(10);
-        $kregle->rzut(10);
-        $kregle->rzut(5);
         $kregle->rzut(2);
         $kregle->rzut(1);
-        $kregle->rzut(1);
-             
         
-        $this->assertEquals(52, $kregle->podajWynikMeczu());
+        $this->assertEquals([3], $kregle->podajWynikiTur());
     }
 }
