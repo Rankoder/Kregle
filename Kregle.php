@@ -8,6 +8,7 @@ class Kregle {
     private $wynikiZWszystkichTur = [];
     private $aktualnaTura = true;
     private $sumaZbitychKregliWJednejTurze = 0;
+    private $wynikiTur = [];
 
     public function rzut($liczbaZbitychKregli)
     {
@@ -70,7 +71,17 @@ class Kregle {
                 $this->zliczajPunktyZbitychKregliZJednejTuryZDwochRund($rzut);
             }else{
                 $this->wynikiZWszystkichTur[] = $rzut;
+                $this->wynikiTur = "strike";
             }
+        }
+    }
+    
+    function sprawdzCzyWynikTuryToSpare()
+    {
+        if($this->sumaZbitychKregliWJednejTurze === 10){
+            $this->wynikiTur = "spare";
+        }else{
+            $this->wynikiTur = $this->sumaZbitychKregliWJednejTurze;              
         }
     }
     
@@ -83,6 +94,7 @@ class Kregle {
             $this->sumaZbitychKregliWJednejTurze += $rzut;
             $this->aktualnaTura = true;
             $this->wynikiZWszystkichTur[] = $this->sumaZbitychKregliWJednejTurze;
+            $this->sprawdzCzyWynikTuryToSpare();
         }
     }
     
