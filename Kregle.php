@@ -69,7 +69,7 @@ class Kregle {
             if($rzut < 10){
                 $this->zliczajPunktyZbitychKregliZJednejTuryZDwochRund($rzut);
             }else{
-                $this->wynikiZWszystkichTur[] = $this->rzut;
+                $this->wynikiZWszystkichTur[] = $rzut;
             }
         }
     }
@@ -85,8 +85,6 @@ class Kregle {
             $this->wynikiZWszystkichTur[] = $this->sumaZbitychKregliWJednejTurze;
         }
     }
-    
-    
     
     function podajWynikiTur()
     {  

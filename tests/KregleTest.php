@@ -125,4 +125,12 @@ class KregleTest extends TestCase
         
         $this->assertEquals([3, 10], $kregle->podajWynikiTur());
     }
+    
+    function testZakladaZe_wynikPierwszegoRzutuToDziesiec()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(10);
+       
+        $this->assertEquals([10], $kregle->podajWynikiTur());
+    }
 }
