@@ -113,4 +113,16 @@ class KregleTest extends TestCase
         
         $this->assertEquals([3], $kregle->podajWynikiTur());
     }
+    
+    function testZakladaZe_wynikPierwszejIDrugiejTuryZostanieZwrocony()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(2);
+        $kregle->rzut(1);
+        $kregle->rzut(5);
+        $kregle->rzut(5);
+        
+        
+        $this->assertEquals([3, 10], $kregle->podajWynikiTur());
+    }
 }

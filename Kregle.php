@@ -5,7 +5,9 @@ class Kregle {
     private $numerTury = 0;
     private $drugiRzut = false;
     private $wynikiWszystkichRzutow = []; 
-    private $wynikiWszystkichTur = [];
+    private $wynikiZWszystkichTur = [];
+    private $aktualnaTura = true;
+    private $sumaZbitychKregliWJednejTurze = 0;
 
     public function rzut($liczbaZbitychKregli)
     {
@@ -62,30 +64,33 @@ class Kregle {
     }
     
     function zliczIloscKregliZbitychWKazdejTurze()
-    {
+    {   
         foreach($this->wynikiWszystkichRzutow as $rzut){
             if($rzut < 10){
-                $this->zliczajPunktyZbitychKregliZJednejTury($rzut);
+                $this->zliczajPunktyZbitychKregliZJednejTuryZDwochRund($rzut);
+            }else{
+                $this->wynikiZWszystkichTur[] = $this->rzut;
             }
         }
     }
     
-    function zliczajPunktyZbitychKregliZJednejTury($rzut)
+    function zliczajPunktyZbitychKregliZJednejTuryZDwochRund($rzut)
     {
-        $aktualnaTura = true;
-        if($aktualnaTura === true){
-            $sumaZbitychKregliWJednejTurze = $rzut;
-            $aktualnaTura = false;
+        if($this->aktualnaTura === true){
+            $this->sumaZbitychKregliWJednejTurze = $rzut;
+            $this->aktualnaTura = false;
         }else{
-            $sumaZbitychKregliWJednejTurze += $rzut;
-            $aktualnaTura = true;
-            $this->wynikiWszystkichTur[] = $sumaZbitychKregliWJednejTurze;
+            $this->sumaZbitychKregliWJednejTurze += $rzut;
+            $this->aktualnaTura = true;
+            $this->wynikiZWszystkichTur[] = $this->sumaZbitychKregliWJednejTurze;
         }
     }
     
+    
+    
     function podajWynikiTur()
     {  
-        return $this->wynikiWszystkichTur;        
+        $this->zliczIloscKregliZbitychWKazdejTurze();
+        return $this->wynikiZWszystkichTur;   
     }
-    
 }
