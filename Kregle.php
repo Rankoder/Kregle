@@ -8,8 +8,7 @@ class Kregle {
     private $wynikiZWszystkichTur = [];
     private $aktualnaTura = true;
     private $sumaZbitychKregliWJednejTurze = 0;
-    private $wynikiTur = [];
-  
+    private $wynikiTekstoweTur = [];  
 
     public function rzut($liczbaZbitychKregli)
     {
@@ -72,7 +71,7 @@ class Kregle {
                 $this->zliczajPunktyZbitychKregliZJednejTuryZDwochRund($rzut);
             }else{
                 $this->wynikiZWszystkichTur[] = $rzut;
-                $this->wynikiTur[] = "strike";
+                $this->wynikiTekstoweTur[] = "strike";
             }
         }
     }
@@ -80,9 +79,9 @@ class Kregle {
     function sprawdzCzyWynikTuryToSpare()
     {
         if($this->sumaZbitychKregliWJednejTurze === 10){
-            $this->wynikiTur[] = "spare";
+            $this->wynikiTekstoweTur[] = "spare";
         }else{
-            $this->wynikiTur[] = $this->sumaZbitychKregliWJednejTurze;              
+            $this->wynikiTekstoweTur[] = $this->sumaZbitychKregliWJednejTurze;              
         }
     }
     
@@ -99,7 +98,7 @@ class Kregle {
         }
     }
     
-    function podajWynikiTur()
+    function podajLiczbeZbitychKregliKazdejTury()
     {  
         $this->zliczIloscKregliZbitychWKazdejTurze();
         return $this->wynikiZWszystkichTur;   
@@ -108,6 +107,27 @@ class Kregle {
     function podajTekstoweWynikiTur()
     {
         $this->zliczIloscKregliZbitychWKazdejTurze();
-        return $this->wynikiTur;   
+        return $this->wynikiTekstoweTur;   
+    }
+    
+    public $punktacjaKazdejTury = [];
+    
+    function obliczPunktacjeKazdejTury()
+    {
+        $this->podajTekstoweWynikiTur();
+        foreach($this->wynikiTekstoweTur as $key=>$value){
+            $end = $key;
+        }
+        for($i = 0; $i < $key; $i++){
+            if($this->wynikiTekstoweTur[$i] == "strike"){
+                $this->punktacjaKazdejTury[] = $this->wynikiZWszystkichTur[$i] + $this->wynikiZWszystkichTur[$i + 1] + $this->wynikiZWszystkichTur[$i + 2] ;
+            }
+        }
+    }    
+    
+    function podajPunktacjeKazdejTury()
+    {   
+        $this->obliczPunktacjeKazdejTury();
+        return $this->punktacjaKazdejTury;
     }
 }

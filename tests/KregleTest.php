@@ -23,10 +23,7 @@ class KregleTest extends TestCase
 
         return $this->assertEquals(10, $kregle->podajRozegraneTury());
     }
-    
-  
-    
-
+ 
     public function testZakładajacZeRzucaszOsiemRazyDziesiatke_JestesNaOsmejTorze()
     {
         $kregle = new Kregle();
@@ -111,7 +108,7 @@ class KregleTest extends TestCase
         $kregle->rzut(2);
         $kregle->rzut(1);
         
-        $this->assertEquals([3], $kregle->podajWynikiTur());
+        $this->assertEquals([3], $kregle->podajLiczbeZbitychKregliKazdejTury());
     }
     
     function testZakladaZe_WynikPierwszejIDrugiejTuryZostanieZwrocony()
@@ -123,7 +120,7 @@ class KregleTest extends TestCase
         $kregle->rzut(5);
         
         
-        $this->assertEquals([3, 10], $kregle->podajWynikiTur());
+        $this->assertEquals([3, 10], $kregle->podajLiczbeZbitychKregliKazdejTury());
     }
     
     function testZakladaZe_WynikPierwszegoRzutuToDziesiec()
@@ -131,7 +128,7 @@ class KregleTest extends TestCase
         $kregle = new Kregle();
         $kregle->rzut(10);
        
-        $this->assertEquals([10], $kregle->podajWynikiTur());
+        $this->assertEquals([10], $kregle->podajLiczbeZbitychKregliKazdejTury());
     }
     
     function testZakladaZe_WynikPierwszejRundyToStrike()
@@ -174,5 +171,17 @@ class KregleTest extends TestCase
         $kregle->rzut(10);
             
         $this->assertEquals(["spare", "strike", "spare", 6, 3, "spare", "spare", 7, 8, "strike"], $kregle->podajTekstoweWynikiTur());
+    }
+    
+    function testZakladaZe_WynikPoPierwszymStrikuBedzieSumaStrikeIDwochKolejnychTur()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(10);
+        $kregle->rzut(9);
+        $kregle->rzut(1);
+        $kregle->rzut(5);
+        $kregle->rzut(1);
+        
+        $this->assertEquals([26], $kregle->podajPunktacjeKazdejTury());
     }
 }
