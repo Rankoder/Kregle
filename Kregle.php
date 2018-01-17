@@ -50,28 +50,52 @@ class Kregle {
     {
         return $this->wynikiWszystkichRzutow;
     }
-//  Kod do refaktoringu - padam.  
+    
     public function obliczPunktacje()
     {
         $this->punkty = 0;
         $numerRzutu = 0;
         for ($i = 0; $i < 10; $i++) {
-            if ($this->wynikiWszystkichRzutow[$numerRzutu] == 10) {
-                $this->wynikKazdejTury[$i] = $this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1] + $this->wynikiWszystkichRzutow[$numerRzutu + 2];
+            if ($this->jestStrike($numerRzutu)) {
+                $this->wynikKazdejTury[$i] = $this->premiaZaStrike($numerRzutu);
                 $this->punkty += $this->wynikKazdejTury[$i];
                 $numerRzutu++;
-            } elseif ($this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1] == 10) {
-                $this->wynikKazdejTury[$i] = $this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1] + $this->wynikiWszystkichRzutow[$numerRzutu + 2];
+            } elseif ($this->jestSpare($numerRzutu)) {
+                $this->wynikKazdejTury[$i] = $this->premiaZaSpare($numerRzutu);
                 $this->punkty += $this->wynikKazdejTury[$i];
                 $numerRzutu += 2;
             } else {
-                $this->wynikKazdejTury[$i] = $this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1];
+                $this->wynikKazdejTury[$i] = $this->bezPremii($numerRzutu);
                 $this->punkty += $this->wynikKazdejTury[$i];                
                 $numerRzutu += 2;
             }
         }
     }
      
+    private function jestStrike($numerRzutu)
+    {
+        return $this->wynikiWszystkichRzutow[$numerRzutu] == 10;
+    }
+    
+    private function jestSpare($numerRzutu)
+    {
+        return $this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1] == 10;
+    }
+    
+    private function premiaZaStrike($numerRzutu)
+    {
+        return 10 + $this->wynikiWszystkichRzutow[$numerRzutu + 1] + $this->wynikiWszystkichRzutow[$numerRzutu + 2];
+    }
+    
+    private function premiaZaSpare($numerRzutu)
+    {
+        return 10 + $this->wynikiWszystkichRzutow[$numerRzutu + 2];
+    }
+    
+    private function bezPremii($numerRzutu)
+    {
+        return $this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1];
+    }
     public function podajPunktacjeZKazdejRundy()
     {
         $this->obliczPunktacje();
