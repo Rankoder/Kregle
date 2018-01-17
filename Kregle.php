@@ -1,14 +1,11 @@
 <?php
 class Kregle {
-    private $punkty = 0;
+    public $punkty = 0;
     private $wynikAktualnegoRzutu = 0;
     private $numerTury = 0;
     private $drugiRzut = false;
     private $wynikiWszystkichRzutow = []; 
-    private $wynikiZWszystkichTur = [];
-    private $aktualnaTura = true;
-    private $sumaZbitychKregliWJednejTurze = 0;
-    private $wynikiTekstoweTur = [];  
+    public $wynikKazdejTury = [];
 
     public function rzut($liczbaZbitychKregli)
     {
@@ -19,8 +16,7 @@ class Kregle {
         } else {
             $this->przeliczRzuty();
         }
-        $this->pobierzWynikRzutow();
-        $this->zliczajPunkty();        
+        $this->pobierzWynikRzutow();       
     }
 
     public function podajRozegraneTury()
@@ -44,15 +40,6 @@ class Kregle {
             $this->drugiRzut = true;
         }
     }
-    public function podajPunktacje()
-    {
-        return $this->punkty;
-    }
-
-    function zliczajPunkty()
-    {
-        $this->punkty += $this->wynikAktualnegoRzutu;
-    }
     
     function pobierzWynikRzutow()
     {
@@ -63,71 +50,37 @@ class Kregle {
     {
         return $this->wynikiWszystkichRzutow;
     }
-    
-    function zliczIloscKregliZbitychWKazdejTurze()
-    {   
-        foreach($this->wynikiWszystkichRzutow as $rzut){
-            if($rzut < 10){
-                $this->zliczajPunktyZbitychKregliZJednejTuryZDwochRund($rzut);
-            }else{
-                $this->wynikiZWszystkichTur[] = $rzut;
-                $this->wynikiTekstoweTur[] = "strike";
+//  Kod do refaktoringu - padam.  
+    public function obliczPunktacje()
+    {
+        $this->punkty = 0;
+        $numerRzutu = 0;
+        for ($i = 0; $i < 10; $i++) {
+            if ($this->wynikiWszystkichRzutow[$numerRzutu] == 10) {
+                $this->wynikKazdejTury[$i] = $this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1] + $this->wynikiWszystkichRzutow[$numerRzutu + 2];
+                $this->punkty += $this->wynikKazdejTury[$i];
+                $numerRzutu++;
+            } elseif ($this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1] == 10) {
+                $this->wynikKazdejTury[$i] = $this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1] + $this->wynikiWszystkichRzutow[$numerRzutu + 2];
+                $this->punkty += $this->wynikKazdejTury[$i];
+                $numerRzutu += 2;
+            } else {
+                $this->wynikKazdejTury[$i] = $this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1];
+                $this->punkty += $this->wynikKazdejTury[$i];                
+                $numerRzutu += 2;
             }
         }
     }
-    
-    function sprawdzCzyWynikTuryToSpare()
+     
+    public function podajPunktacjeZKazdejRundy()
     {
-        if($this->sumaZbitychKregliWJednejTurze === 10){
-            $this->wynikiTekstoweTur[] = "spare";
-        }else{
-            $this->wynikiTekstoweTur[] = $this->sumaZbitychKregliWJednejTurze;              
-        }
+        $this->obliczPunktacje();
+        return $this->wynikKazdejTury;
     }
     
-    function zliczajPunktyZbitychKregliZJednejTuryZDwochRund($rzut)
+    public function podajPunktacje()
     {
-        if($this->aktualnaTura === true){
-            $this->sumaZbitychKregliWJednejTurze = $rzut;
-            $this->aktualnaTura = false;
-        }else{
-            $this->sumaZbitychKregliWJednejTurze += $rzut;
-            $this->aktualnaTura = true;
-            $this->wynikiZWszystkichTur[] = $this->sumaZbitychKregliWJednejTurze;
-            $this->sprawdzCzyWynikTuryToSpare();
-        }
-    }
-    
-    function podajLiczbeZbitychKregliKazdejTury()
-    {  
-        $this->zliczIloscKregliZbitychWKazdejTurze();
-        return $this->wynikiZWszystkichTur;   
-    }
-    
-    function podajTekstoweWynikiTur()
-    {
-        $this->zliczIloscKregliZbitychWKazdejTurze();
-        return $this->wynikiTekstoweTur;   
-    }
-    
-    public $punktacjaKazdejTury = [];
-    
-    function obliczPunktacjeKazdejTury()
-    {
-        $this->podajTekstoweWynikiTur();
-        foreach($this->wynikiTekstoweTur as $key=>$value){
-            $end = $key;
-        }
-        for($i = 0; $i < $key; $i++){
-            if($this->wynikiTekstoweTur[$i] == "strike"){
-                $this->punktacjaKazdejTury[] = $this->wynikiZWszystkichTur[$i] + $this->wynikiZWszystkichTur[$i + 1] + $this->wynikiZWszystkichTur[$i + 2] ;
-            }
-        }
-    }    
-    
-    function podajPunktacjeKazdejTury()
-    {   
-        $this->obliczPunktacjeKazdejTury();
-        return $this->punktacjaKazdejTury;
+        $this->obliczPunktacje();
+        return $this->punkty;
     }
 }

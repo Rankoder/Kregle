@@ -76,23 +76,6 @@ class KregleTest extends TestCase
         $this->assertEquals(0, $kregle->podajRozegraneTury());
     }
 
-    public function testZakładajacZeZbijeszTrzyKregle_OtrzymujeszTrzyPunkty()
-    {
-        $kregle = new Kregle();
-        $kregle->rzut(3);
-
-        $this->assertEquals(3, $kregle->podajPunktacje());
-    }
-
-    public function testZakładajacZeZbijeszSzescPunktowWDwochRzutach()
-    {
-        $kregle = new Kregle();
-        $kregle->rzut(3);
-        $kregle->rzut(5);
-
-        $this->assertEquals(8, $kregle->podajPunktacje());
-    }
-
     public function testZakladaZe_WynikiDwochRzutowZostanaZwrocone()
     {
         $kregle = new Kregle();
@@ -102,86 +85,100 @@ class KregleTest extends TestCase
         $this->assertEquals([3, 5], $kregle->podajWynikiRzutow());
     }
     
-    function testZakladaZe_WynikJednejTuryZostanieZwrocony()
+    public function testZakladaZeZostanieZwroconaTablicaZWynikamiSamychStrikowCoRunde()
     {
         $kregle = new Kregle();
-        $kregle->rzut(2);
-        $kregle->rzut(1);
+        $kregle->rzut(10); // 1
+        $kregle->rzut(10); // 2
+        $kregle->rzut(10); // 3
+        $kregle->rzut(10); // 4
+        $kregle->rzut(10); // 5
+        $kregle->rzut(10); // 6
+        $kregle->rzut(10); // 7
+        $kregle->rzut(10); // 8
+        $kregle->rzut(10); // 9
+        $kregle->rzut(10); // 10
+        $kregle->rzut(10); // 11
+        $kregle->rzut(10); // 12          
+      
+        $this->assertEquals([30, 30, 30, 30, 30, 30, 30, 30, 30, 30], $kregle->podajPunktacjeZKazdejRundy());
+    }
+    
+    public function testZakladaZeZostanieZwroconaTablicaZWynikamiSamychSparowCoRunde()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
         
-        $this->assertEquals([3], $kregle->podajLiczbeZbitychKregliKazdejTury());
+      
+        $this->assertEquals([15, 15, 15, 15, 15, 15, 15, 15, 15, 15], $kregle->podajPunktacjeZKazdejRundy());
     }
     
-    function testZakladaZe_WynikPierwszejIDrugiejTuryZostanieZwrocony()
+    public function testZakladaPunktacjeStopiedziesiat()
     {
         $kregle = new Kregle();
-        $kregle->rzut(2);
-        $kregle->rzut(1);
-        $kregle->rzut(5);
-        $kregle->rzut(5);
-        
-        
-        $this->assertEquals([3, 10], $kregle->podajLiczbeZbitychKregliKazdejTury());
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2
+        $kregle->rzut(5); // 1
+        $kregle->rzut(5); // 2          
+      
+        $this->assertEquals(150, $kregle->podajPunktacje());
     }
     
-    function testZakladaZe_WynikPierwszegoRzutuToDziesiec()
+    public function testZakladaMaksymalnaIloscWynikow()
     {
         $kregle = new Kregle();
-        $kregle->rzut(10);
-       
-        $this->assertEquals([10], $kregle->podajLiczbeZbitychKregliKazdejTury());
-    }
-    
-    function testZakladaZe_WynikPierwszejRundyToStrike()
-    {
-        $kregle = new Kregle();
-        $kregle->rzut(10);
-       
-        $this->assertEquals(["strike"], $kregle->podajTekstoweWynikiTur());
-    }
-    
-    function testZakladaZe_WynikPierwszejRundyToSpare()
-    {
-        $kregle = new Kregle();
-        $kregle->rzut(1);
-        $kregle->rzut(9);
-       
-        $this->assertEquals(["spare"], $kregle->podajTekstoweWynikiTur());
-    }
-    
-    function testZakladaZe_WynikiKolejnychTurToSpareStrikeILiczbowe()
-    {
-        $kregle = new Kregle();
-        $kregle->rzut(1);
-        $kregle->rzut(9);
-        $kregle->rzut(10);
-        $kregle->rzut(9);
-        $kregle->rzut(1);
-        $kregle->rzut(5);
-        $kregle->rzut(1);
-        $kregle->rzut(2);
-        $kregle->rzut(1);
-        $kregle->rzut(9);
-        $kregle->rzut(1);
-        $kregle->rzut(9);
-        $kregle->rzut(1);
-        $kregle->rzut(2);
-        $kregle->rzut(5);
-        $kregle->rzut(6);
-        $kregle->rzut(2);
-        $kregle->rzut(10);
-            
-        $this->assertEquals(["spare", "strike", "spare", 6, 3, "spare", "spare", 7, 8, "strike"], $kregle->podajTekstoweWynikiTur());
-    }
-    
-    function testZakladaZe_WynikPoPierwszymStrikuBedzieSumaStrikeIDwochKolejnychTur()
-    {
-        $kregle = new Kregle();
-        $kregle->rzut(10);
-        $kregle->rzut(9);
-        $kregle->rzut(1);
-        $kregle->rzut(5);
-        $kregle->rzut(1);
-        
-        $this->assertEquals([26], $kregle->podajPunktacjeKazdejTury());
+        $kregle->rzut(10); // 1
+        $kregle->rzut(10); // 2
+        $kregle->rzut(10); // 3
+        $kregle->rzut(10); // 4
+        $kregle->rzut(10); // 5
+        $kregle->rzut(10); // 6
+        $kregle->rzut(10); // 7
+        $kregle->rzut(10); // 8
+        $kregle->rzut(10); // 9
+        $kregle->rzut(10); // 10
+        $kregle->rzut(10); // 11
+        $kregle->rzut(10); // 12          
+      
+        $this->assertEquals(300, $kregle->podajPunktacje());
     }
 }
