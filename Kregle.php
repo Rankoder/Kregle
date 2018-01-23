@@ -8,7 +8,8 @@ class Kregle {
     private $drugiRzut = false;
     private $wynikiWszystkichRzutow = []; 
     public $zbiteKregleWOstatniejTurze = 0;
-    public $dogrywka = 0;
+    public $dodatkowyRzut = 0;
+    public $dogrywka = false;
     
     public function rzut($liczbaZbitychKregli)
     {   
@@ -20,6 +21,7 @@ class Kregle {
         } else {
             $this->przeliczRzuty();
         }
+        $this->ileDodatkowychRzutowZostalo();
         $this->pobierzWynikRzutow();       
     }
 
@@ -28,36 +30,40 @@ class Kregle {
         return $this->numerTury;
     }
 
-    function sprawdzCzyJestDogrywka($liczbaZbitychKregli){
+    function sprawdzCzyJestDogrywka($liczbaZbitychKregli)
+    {
         if($this->numerTury == 9){
             if($liczbaZbitychKregli == 10){
-                $this->dogrywka = 2;
-            }else{
-                $this->zbiteKregleWOstatniejTurze += $liczbaZbitychKregli;
-            if($this->zbiteKregleWOstatniejTurze == 10){
-                $this->dogrywka = 1;
-            }else{
-                $this->dogrywka = 0;
-            }
+                $this->dodatkowyRzut = 2;
+            }elseif(($this->zbiteKregleWOstatniejTurze += $liczbaZbitychKregli) == 10){
+                    $this->dodatkowyRzut = 1;
             }
         }
     }
  
-    public function podajCzyJestDogrywka(){
+    function ileDodatkowychRzutowZostalo()
+    {        
+        if($this->numerTury == 10){
+            if($this->dodatkowyRzut > 0){
+                $this->dodatkowyRzut--;
+                $this->dogrywka = true;
+            }else{
+                return $this->dogrywka = false;
+            }
+        }
+    }
+    public function podajCzyJestDogrywka()
+    {
         return $this->dogrywka;
     }
     
     private function przejdzDoKolejnejTury()
     {
         if($this->numerTury < 10){
-            $this->numerTury++;            
+            $this->numerTury++;          
         }
     }
-//elseif($this->dogrywka > 0){
-//            $this->dogrywka--;
-//        }else{
-//            return $this->podajPunktacje();
-//        }
+
     private function przeliczRzuty()
     {
         if ($this->drugiRzut == true){
@@ -133,6 +139,5 @@ class Kregle {
     {
         $this->obliczPunktacje();
         return $this->punkty;
-    }
-    
+    }    
 }
