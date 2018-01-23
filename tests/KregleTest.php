@@ -181,4 +181,198 @@ class KregleTest extends TestCase
       
         $this->assertEquals(300, $kregle->podajPunktacje());
     }
+    public function testZakladaZeWDziesiatejTurzeRzutToStrikeWynikToTrzysta()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(10); // 1
+        $kregle->rzut(10); // 2
+        $kregle->rzut(10); // 3
+        $kregle->rzut(10); // 4
+        $kregle->rzut(10); // 5
+        $kregle->rzut(10); // 6
+        $kregle->rzut(10); // 7
+        $kregle->rzut(10); // 8
+        $kregle->rzut(10); // 9
+        $kregle->rzut(10); // 10
+        $kregle->rzut(10); // 11
+        $kregle->rzut(10); // 12          
+      
+        $this->assertEquals(300, $kregle->podajPunktacje());
+    }
+    
+    public function testZakladaZeWDziesiatejTurzeRzutyToSpareAWynikToDwiescieSiedemdziesiatDwa()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(10); // 1
+        $kregle->rzut(10); // 2
+        $kregle->rzut(10); // 3
+        $kregle->rzut(10); // 4
+        $kregle->rzut(10); // 5
+        $kregle->rzut(10); // 6
+        $kregle->rzut(10); // 7
+        $kregle->rzut(10); // 8
+        $kregle->rzut(10); // 9
+        $kregle->rzut(2); // 10
+        $kregle->rzut(8); // 10
+        $kregle->rzut(10); // 11          
+      
+        $this->assertEquals(272, $kregle->podajPunktacje());
+    }
+    
+    public function testZakladaZeWDziesiatejTurzeRzutyToPiecZbitychKregliAWynikToDwiesciePiedziesiatDwa()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(10); // 1
+        $kregle->rzut(10); // 2
+        $kregle->rzut(10); // 3
+        $kregle->rzut(10); // 4
+        $kregle->rzut(10); // 5
+        $kregle->rzut(10); // 6
+        $kregle->rzut(10); // 7
+        $kregle->rzut(10); // 8
+        $kregle->rzut(10); // 9
+        $kregle->rzut(2); // 10
+        $kregle->rzut(3); // 11         
+      
+        $this->assertEquals(252, $kregle->podajPunktacje());
+    }
+    
+    public function testZakladaZeWDziesiatejTurzeRzutyToPiecZbitychKregliIJestZeroRzutowWiecej()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(10); // 1
+        $kregle->rzut(10); // 2
+        $kregle->rzut(10); // 3
+        $kregle->rzut(10); // 4
+        $kregle->rzut(10); // 5
+        $kregle->rzut(10); // 6
+        $kregle->rzut(10); // 7
+        $kregle->rzut(10); // 8
+        $kregle->rzut(10); // 9
+        $kregle->rzut(2); // 10
+        $kregle->rzut(3); // 10         
+      
+        $this->assertEquals(0, $kregle->podajCzyJestDogrywka());
+    }
+    
+    public function testZakladaZeWDziesiatejTurzeRzutyToSpareIJestJedenRzutWiecej()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(10); // 1
+        $kregle->rzut(10); // 2
+        $kregle->rzut(10); // 3
+        $kregle->rzut(10); // 4
+        $kregle->rzut(10); // 5
+        $kregle->rzut(10); // 6
+        $kregle->rzut(10); // 7
+        $kregle->rzut(10); // 8
+        $kregle->rzut(10); // 9
+        $kregle->rzut(5); // 10
+        $kregle->rzut(5); // 10  
+        $kregle->rzut(5); // 11  
+      
+        $this->assertEquals(1, $kregle->podajCzyJestDogrywka());
+    }
+    
+    public function testZakladaZeWDziesiatejTurzePadnieStrikeIBedaDwaDodatkoweRzuty()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(10); // 1
+        $kregle->rzut(10); // 2
+        $kregle->rzut(10); // 3
+        $kregle->rzut(10); // 4
+        $kregle->rzut(10); // 5
+        $kregle->rzut(10); // 6
+        $kregle->rzut(10); // 7
+        $kregle->rzut(10); // 8
+        $kregle->rzut(10); // 9
+        $kregle->rzut(10); // 10
+        $kregle->rzut(10); // 11
+        $kregle->rzut(10); // 12  
+      
+        $this->assertEquals(2, $kregle->podajCzyJestDogrywka());
+    }
+    
+    public function testZakladaZeWynikPunktacjiWyniesieDwadziescia()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);        
+      
+        $this->assertEquals(20, $kregle->podajPunktacje());
+    }
+    
+    public function testZakladaZeWynikPunktacjiWyniesieTrzydziesci()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(10);
+        $kregle->rzut(1); 
+        $kregle->rzut(1);
+      
+        $this->assertEquals(30, $kregle->podajPunktacje());
+    }
+    
+    public function testZakladaZeWynikPunktacjiWyniesieDwadziesciaDziewiec()
+    {
+        $kregle = new Kregle();
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(1);
+        $kregle->rzut(9);
+        $kregle->rzut(1); 
+        $kregle->rzut(1);
+      
+        $this->assertEquals(29, $kregle->podajPunktacje());
+    }
 }
