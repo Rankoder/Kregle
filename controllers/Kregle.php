@@ -30,7 +30,7 @@ class Kregle {
         return $this->numerTury;
     }
 
-    function sprawdzCzyJestDogrywka($liczbaZbitychKregli)
+    private function sprawdzCzyJestDogrywka($liczbaZbitychKregli)
     {
         if($this->numerTury == 9){
             if($liczbaZbitychKregli == 10){
@@ -41,7 +41,7 @@ class Kregle {
         }
     }
  
-    function ileDodatkowychRzutowZostalo()
+    public function ileDodatkowychRzutowZostalo()
     {        
         if($this->numerTury == 10){
             if($this->dodatkowyRzut > 0){
@@ -52,6 +52,7 @@ class Kregle {
             }
         }
     }
+    
     public function podajCzyJestDogrywka()
     {
         return $this->dogrywka;
@@ -129,6 +130,7 @@ class Kregle {
     {
         return $this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1];
     }
+    
     public function podajPunktacjeZKazdejRundy()
     {
         $this->obliczPunktacje();
