@@ -1,14 +1,19 @@
 <?php
 class Kregle {
+    
+    public $wynikKazdejTury = [];
     public $punkty = 0;
     private $wynikAktualnegoRzutu = 0;
     private $numerTury = 0;
     private $drugiRzut = false;
     private $wynikiWszystkichRzutow = []; 
-    public $wynikKazdejTury = [];
-
+    public $zbiteKregleWOstatniejTurze = 0;
+    public $dodatkowyRzut = 0;
+    public $dogrywka = false;
+    
     public function rzut($liczbaZbitychKregli)
-    {
+    {   
+        $this->sprawdzCzyJestDogrywka($liczbaZbitychKregli);
         $this->wynikAktualnegoRzutu = $liczbaZbitychKregli;      
         if($liczbaZbitychKregli == 10){
             $this->przejdzDoKolejnejTury();
@@ -16,6 +21,7 @@ class Kregle {
         } else {
             $this->przeliczRzuty();
         }
+        $this->ileDodatkowychRzutowZostalo();
         $this->pobierzWynikRzutow();       
     }
 
@@ -24,16 +30,44 @@ class Kregle {
         return $this->numerTury;
     }
 
+    private function sprawdzCzyJestDogrywka($liczbaZbitychKregli)
+    {
+        if($this->numerTury == 9){
+            if($liczbaZbitychKregli == 10){
+                $this->dodatkowyRzut = 2;
+            }elseif(($this->zbiteKregleWOstatniejTurze += $liczbaZbitychKregli) == 10){
+                    $this->dodatkowyRzut = 1;
+            }
+        }
+    }
+ 
+    public function ileDodatkowychRzutowZostalo()
+    {        
+        if($this->numerTury == 10){
+            if($this->dodatkowyRzut > 0){
+                $this->dodatkowyRzut--;
+                $this->dogrywka = true;
+            }else{
+                return $this->dogrywka = false;
+            }
+        }
+    }
+    
+    public function podajCzyJestDogrywka()
+    {
+        return $this->dogrywka;
+    }
+    
     private function przejdzDoKolejnejTury()
     {
-        if($this->numerTury < 10) {
-            $this->numerTury++;            
+        if($this->numerTury < 10){
+            $this->numerTury++;          
         }
     }
 
-   private function przeliczRzuty()
+    private function przeliczRzuty()
     {
-        if ($this->drugiRzut == true) {
+        if ($this->drugiRzut == true){
             $this->drugiRzut = false;
             $this->przejdzDoKolejnejTury();
         } else {
@@ -41,30 +75,30 @@ class Kregle {
         }
     }
     
-    function pobierzWynikRzutow()
+    private function pobierzWynikRzutow()
     {
         $this->wynikiWszystkichRzutow[] = $this->wynikAktualnegoRzutu;
     }
     
-    function podajWynikiRzutow()
+    public function podajWynikiRzutow()
     {
         return $this->wynikiWszystkichRzutow;
     }
     
-    public function obliczPunktacje()
+    private function obliczPunktacje()
     {
         $this->punkty = 0;
         $numerRzutu = 0;
-        for ($i = 0; $i < 10; $i++) {
-            if ($this->jestStrike($numerRzutu)) {
+        for($i = 0; $i < 10; $i++){
+            if($this->jestStrike($numerRzutu)){
                 $this->wynikKazdejTury[$i] = $this->premiaZaStrike($numerRzutu);
                 $this->punkty += $this->wynikKazdejTury[$i];
                 $numerRzutu++;
-            } elseif ($this->jestSpare($numerRzutu)) {
+            }elseif($this->jestSpare($numerRzutu)){
                 $this->wynikKazdejTury[$i] = $this->premiaZaSpare($numerRzutu);
                 $this->punkty += $this->wynikKazdejTury[$i];
                 $numerRzutu += 2;
-            } else {
+            }else{
                 $this->wynikKazdejTury[$i] = $this->bezPremii($numerRzutu);
                 $this->punkty += $this->wynikKazdejTury[$i];                
                 $numerRzutu += 2;
@@ -96,6 +130,7 @@ class Kregle {
     {
         return $this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1];
     }
+    
     public function podajPunktacjeZKazdejRundy()
     {
         $this->obliczPunktacje();
@@ -106,5 +141,5 @@ class Kregle {
     {
         $this->obliczPunktacje();
         return $this->punkty;
-    }
+    }    
 }
