@@ -3,8 +3,7 @@ include "./Kregle.php";
 
 use PHPUnit\Framework\TestCase;
 
-class KregleTest extends TestCase
-{
+class KregleTest extends TestCase {
     private $kregle;
     
     public function setUp() 
