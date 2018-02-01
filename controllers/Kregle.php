@@ -4,7 +4,7 @@ class Kregle {
     public $wynikKazdejTury = [];
     public $punkty = 0;
     private $wynikAktualnegoRzutu = 0;
-    private $numerTury = 0;
+    public $numerTury = 0;
     public $drugiRzut = false;
     private $wynikiWszystkichRzutow = []; 
     public $zbiteKregleWOstatniejTurze = 0;
