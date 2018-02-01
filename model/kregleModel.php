@@ -62,3 +62,6 @@ setcookie('mycookie', $listOfValuesInJsonFormat);
 ECHO "<br>";
 echo "Stara tablica: " . $oldListOfValuesInJsonFormat . "<br>";
 echo "Nowa Tablica: " . $listOfValuesInJsonFormat . "<br>";
+
+//header("Location: ../view/pages/rzut-page.php");
+header("Location: ../view/pages/wynik-page.php");

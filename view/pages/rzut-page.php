@@ -6,7 +6,7 @@ include "../common_parts/header.php";
             <h1 class="cover-heading">Runda: </h1>
             <p class="lead">Wykonaj rzut</p>
             <p class="lead">
-                <a href="./rzut-page.php" class="btn btn-lg btn-secondary">Rzut</a>
+                <a href="../../model/kregleModel.php" class="btn btn-lg btn-secondary">Rzut</a>
             </p>
             </main>
         </div>
