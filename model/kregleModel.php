@@ -35,3 +35,30 @@ foreach($gra->podajWynikiRzutow() as $punktacjiaTur){
 echo "<br>";          
 echo $gra->podajPunktacje();
 echo "\n $wynik ";
+
+$oldListOfValuesInJsonFormat = "";
+
+
+if (isset($_COOKIE["mycookie"])) {
+    $oldListOfValuesInJsonFormat = $_COOKIE["mycookie"];
+}
+
+
+$oldListOfValues = json_decode($oldListOfValuesInJsonFormat);
+
+$listOfValues = [];
+foreach($oldListOfValues as $old){
+    $listOfValues[] = $old;
+}
+for ($i = 0; $i < 2; $i++) {
+    $listOfValues[] = rand(1, 10);
+}
+
+
+$listOfValuesInJsonFormat = json_encode($listOfValues);
+
+
+setcookie('mycookie', $listOfValuesInJsonFormat);
+ECHO "<br>";
+echo "Stara tablica: " . $oldListOfValuesInJsonFormat . "<br>";
+echo "Nowa Tablica: " . $listOfValuesInJsonFormat . "<br>";

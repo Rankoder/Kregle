@@ -2,7 +2,7 @@
 // Przeczytaj kod i odświeżaj stronę. Możesz eksperymentować.
 // Aby odpalić serwer wpisz w linii poleceń "php -S localhost:8080" i php odpali Ci serwer lokalny z tym plikiem pod tym adresem: "localhost:8080/cookies.php"
 
-// Tworzę z mienną, w której będę przechowywał ostatnio zapisanego JSON-a (JSON jest stringiem) z danymi
+// Tworzę zmienną, w której będę przechowywał ostatnio zapisanego JSON-a (JSON jest stringiem) z danymi
 $oldListOfValuesInJsonFormat = "";
 
 // Pobieram dane które już w tej chwili są zapisane w ciasteczku "mycookie" (jeśli w ogóle takie ciasteczko istnieje)
@@ -15,7 +15,10 @@ $oldListOfValues = json_decode($oldListOfValuesInJsonFormat);
 
 // Generuję nową tablice znaków (losowe liczby)
 $listOfValues = [];
-for ($i = 0; $i < 10; $i++) {
+foreach($oldListOfValues as $old){
+    $listOfValues[]             = $old;
+}
+for ($i = 0; $i < 2; $i++) {
     $listOfValues[] = rand(1, 10);
 }
 
