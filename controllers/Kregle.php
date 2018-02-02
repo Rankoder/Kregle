@@ -4,12 +4,12 @@ class Kregle {
     public $wynikKazdejTury = [];
     public $punkty = 0;
     private $wynikAktualnegoRzutu = 0;
-    private $numerTury = 0;
-    private $drugiRzut = false;
+    public $numerTury = 0;
+    public $drugiRzut = false;
     private $wynikiWszystkichRzutow = []; 
     public $zbiteKregleWOstatniejTurze = 0;
     public $dodatkowyRzut = 0;
-    public $dogrywka = false;
+    private $dogrywka = true;
     
     public function rzut($liczbaZbitychKregli)
     {   
@@ -75,6 +75,11 @@ class Kregle {
         }
     }
     
+    public function podajCzyJestDrugiRzut()
+    {
+        return $this->drugiRzut;
+    }
+    
     private function pobierzWynikRzutow()
     {
         $this->wynikiWszystkichRzutow[] = $this->wynikAktualnegoRzutu;
@@ -98,7 +103,7 @@ class Kregle {
                 $this->wynikKazdejTury[$i] = $this->premiaZaSpare($numerRzutu);
                 $this->punkty += $this->wynikKazdejTury[$i];
                 $numerRzutu += 2;
-            }else{
+            }elseif($this->jestBezBonusu ($numerRzutu)){
                 $this->wynikKazdejTury[$i] = $this->bezPremii($numerRzutu);
                 $this->punkty += $this->wynikKazdejTury[$i];                
                 $numerRzutu += 2;
@@ -114,6 +119,11 @@ class Kregle {
     private function jestSpare($numerRzutu)
     {
         return $this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1] == 10;
+    }
+    
+    private function jestBezBonusu($numerRzutu)
+    {
+        return $this->wynikiWszystkichRzutow[$numerRzutu] + $this->wynikiWszystkichRzutow[$numerRzutu + 1] < 10;
     }
     
     private function premiaZaStrike($numerRzutu)

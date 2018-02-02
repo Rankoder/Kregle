@@ -162,4 +162,28 @@ class KregleTest extends TestCase {
       
         $this->assertEquals(20, $this->kregle->podajPunktacje());
     }
+    
+    public function testZakladaZeJestDrugiRzut()
+    {
+        $this->powtarzajRzut(3, 1);        
+      
+        $this->assertEquals(true, $this->kregle->podajCzyJestDrugiRzut());
+    }
+    
+    public function testZakladaZeNieMaDrugiegoRzutu()
+    {
+        $this->powtarzajRzut(2, 1); 
+        $this->rzucStrike();
+      
+        $this->assertEquals(false, $this->kregle->podajCzyJestDrugiRzut());
+    }
+    
+    public function testZakladaZeWynikPunktacjiWyniesieTrzydziesciOsiem()
+    {
+        $this->powtarzajRzut(18, 1);
+        $this->rzucStrike();
+        $this->rzucSpare();
+      
+        $this->assertEquals(38, $this->kregle->podajPunktacje());
+    }
 }
