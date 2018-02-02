@@ -1,6 +1,6 @@
 <?php
 if(isset($_COOKIE['mycookie'])){ 
-    echo $_COOKIE['mycookie'];
+    echo "mycookie: ". $_COOKIE['mycookie'];
 }else{
     echo 'ciasteczko mycookie jest wyzerowane';
 }
@@ -8,7 +8,7 @@ if(isset($_COOKIE['mycookie'])){
 echo "<br>";
 
 if(isset($_COOKIE['runda'])){ 
-    echo $_COOKIE['runda'];
+    echo "runda: ". $_COOKIE['runda'];
 }else{
     echo 'ciasteczko runda jest wyzerowane';
 }
@@ -16,7 +16,7 @@ if(isset($_COOKIE['runda'])){
 echo "<br>";
 
 if(isset($_COOKIE['wynik'])){ 
-    echo $_COOKIE['wynik'];
+    echo "wynik". $_COOKIE['wynik'];
 }else{
     echo 'ciasteczko wynik jest wyzerowane';
 }
@@ -24,7 +24,7 @@ if(isset($_COOKIE['wynik'])){
 echo "<br>";
 
 if(isset($_COOKIE['tablicaWynikow'])){ 
-    echo $_COOKIE['tablicaWynikow'];
+    echo "tablica wynikow: " . $_COOKIE['tablicaWynikow'];
 }else{
     echo 'ciasteczko wynik jest wyzerowane';
 }

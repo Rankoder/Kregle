@@ -18,15 +18,11 @@ if (isset($_COOKIE["tablicaWynikow"])) {
 }
 
 $gra = new Kregle();
-$iloscKregli = 0;
-$j = 1;
+$iloscKregli = $_COOKIE['mycookie'];
 
 if (isset($_COOKIE["tablicaWynikow"])) {
     foreach($tablicaRzutow as $rzut){
-        echo "Numer Tury: (".($gra->podajRozegraneTury() + 1);
-        $iloscKregli = $gra->rzut($rzut);
-        echo ") \n Numer Rzutu: ($j) \n Wynik Rzutu: ($iloscKregli) <br>";
-        $j++;    
+        $gra->rzut($rzut);
     }
 }
 
@@ -34,28 +30,35 @@ if($gra->podajRozegraneTury() <= 9){
     if($gra->podajCzyJestDrugiRzut() == true){            
         $gra->rzut($iloscKregli = rand(0, 10 - $iloscKregli));
         $tablicaRzutow[] = $iloscKregli;
-
     }else{                     
         $gra->rzut($iloscKregli = rand(0, 10));
         $tablicaRzutow[] = $iloscKregli;          
     }
     $runda = ($gra->podajRozegraneTury() + 1);
-    setcookie('runda', $runda);
+    
+    if($runda > 10){
+        setcookie('runda', 'Wynik');
+    }else{
+    setcookie('runda', "$runda/10" );
+    }
+    
     $aktualnaTablicaRzutow = json_encode($tablicaRzutow);
     setcookie('tablicaWynikow', $aktualnaTablicaRzutow);
+    setcookie('mycookie', $iloscKregli);
     
-    //header("Location: ../view/pages/rzut-page.php");
+    header("Location: ./view/pages/rzut-page.php");
 }elseif($gra->podajCzyJestDogrywka() != false){         
-    $gra->rzut($iloscKregli = rand(0, 10 - $iloscKregli));
+    $gra->rzut($iloscKregli = rand(0, 10));
     $tablicaRzutow[] = $iloscKregli; 
     $aktualnaTablicaRzutow = json_encode($tablicaRzutow);
     setcookie('tablicaWynikow', $aktualnaTablicaRzutow);
     $runda = 10;
     setcookie('runda', $runda);
+    setcookie('mycookie', $iloscKregli);
     
-    //header("Location: ../view/pages/rzut-page.php");
+    header("Location: ./view/pages/rzut-page.php");
 }else{    
     $wynik = $gra->podajPunktacje();
     setcookie('wynik', $wynik);
-    //header("Location: ./view/pages/wynik-page.php");   
+    header("Location: ./view/pages/wynik-page.php");   
 }

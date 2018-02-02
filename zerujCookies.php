@@ -1,7 +1,7 @@
 <?php
     $zerowanieWartosciCookies = null;
     setcookie('mycookie', $zerowanieWartosciCookies);
-    setcookie('runda', 1);
+    setcookie('runda', "1/10");
     setcookie('wynik', $zerowanieWartosciCookies);
     setcookie('tablicaWynikow', $zerowanieWartosciCookies);
     
