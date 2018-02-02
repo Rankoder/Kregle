@@ -9,7 +9,7 @@ class Kregle {
     private $wynikiWszystkichRzutow = []; 
     public $zbiteKregleWOstatniejTurze = 0;
     public $dodatkowyRzut = 0;
-    public $dogrywka = true;
+    private $dogrywka = true;
     
     public function rzut($liczbaZbitychKregli)
     {   

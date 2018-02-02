@@ -11,17 +11,12 @@ $poprzedniaTablicaRzutow = json_decode($poprzedniaTablicaRzutowJSONFormat);
 
 $tablicaRzutow = [];
 
-if (isset($_COOKIE["tablicaWynikow"])) {
-    foreach($poprzedniaTablicaRzutow as $rzut){
-        $tablicaRzutow[] = $rzut;
-    }
-}
-
 $gra = new Kregle();
 $iloscKregli = $_COOKIE['wynikOstatniegoRzutu'];
 
 if (isset($_COOKIE["tablicaWynikow"])) {
-    foreach($tablicaRzutow as $rzut){
+    foreach($poprzedniaTablicaRzutow as $rzut){
+        $tablicaRzutow[] = $rzut;
         $gra->rzut($rzut);
     }
 }
@@ -34,28 +29,27 @@ if($gra->podajRozegraneTury() <= 9){
         $gra->rzut($iloscKregli = rand(0, 10));
         $tablicaRzutow[] = $iloscKregli;          
     }
-    $runda = ($gra->podajRozegraneTury() + 1);
     
-    if($runda > 10){
-        setcookie('runda', 'Wynik');
-    }else{
-    setcookie('runda', "$runda/10" );
-    }
+    $runda = ($gra->podajRozegraneTury() + 1);
+        if($runda > 10){
+            setcookie('runda', 'Wynik');
+        }else{
+            setcookie('runda', "$runda/10" );
+        }
     
     $aktualnaTablicaRzutow = json_encode($tablicaRzutow);
     setcookie('tablicaWynikow', $aktualnaTablicaRzutow);
-    setcookie('wynikOstatniegoRzutu', $iloscKregli);
-    
+    setcookie('wynikOstatniegoRzutu', $iloscKregli);    
     header("Location: ./view/pages/rzut-page.php");
 }elseif($gra->podajCzyJestDogrywka() != false){         
     $gra->rzut($iloscKregli = rand(0, 10));
     $tablicaRzutow[] = $iloscKregli; 
     $aktualnaTablicaRzutow = json_encode($tablicaRzutow);
-    setcookie('tablicaWynikow', $aktualnaTablicaRzutow);
     $runda = 10;
-    setcookie('runda', $runda);
-    setcookie('wynikOstatniegoRzutu', $iloscKregli);
     
+    setcookie('tablicaWynikow', $aktualnaTablicaRzutow);
+    setcookie('runda', $runda);
+    setcookie('wynikOstatniegoRzutu', $iloscKregli);    
     header("Location: ./view/pages/rzut-page.php");
 }else{    
     $wynik = $gra->podajPunktacje();
