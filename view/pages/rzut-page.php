@@ -7,13 +7,7 @@ include "../common_parts/header.php";
             <p class="lead">Wykonaj rzut</p>
             <p class="lead">
                 <a href="../../kregleModel.php" class="btn btn-lg btn-secondary">
-                    <?php 
-                        if($_COOKIE['runda'] != "Wynik"){
-                            echo "Rzut";                       
-                        }else{
-                            echo "Podaj Wynik";
-                        }
-                    ?>
+                    <?php include 'button.php'; ?>
                 </a>
             </p>
             </main>

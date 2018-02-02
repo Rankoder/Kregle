@@ -1,6 +1,6 @@
 <?php
 if(isset($_COOKIE['mycookie'])){ 
-    echo "mycookie: ". $_COOKIE['mycookie'];
+    echo "wynikOstatniegoRzutu: ". $_COOKIE['wynikOstatniegoRzutu'];
 }else{
     echo 'ciasteczko mycookie jest wyzerowane';
 }

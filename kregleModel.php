@@ -18,7 +18,7 @@ if (isset($_COOKIE["tablicaWynikow"])) {
 }
 
 $gra = new Kregle();
-$iloscKregli = $_COOKIE['mycookie'];
+$iloscKregli = $_COOKIE['wynikOstatniegoRzutu'];
 
 if (isset($_COOKIE["tablicaWynikow"])) {
     foreach($tablicaRzutow as $rzut){
@@ -44,7 +44,7 @@ if($gra->podajRozegraneTury() <= 9){
     
     $aktualnaTablicaRzutow = json_encode($tablicaRzutow);
     setcookie('tablicaWynikow', $aktualnaTablicaRzutow);
-    setcookie('mycookie', $iloscKregli);
+    setcookie('wynikOstatniegoRzutu', $iloscKregli);
     
     header("Location: ./view/pages/rzut-page.php");
 }elseif($gra->podajCzyJestDogrywka() != false){         
@@ -54,7 +54,7 @@ if($gra->podajRozegraneTury() <= 9){
     setcookie('tablicaWynikow', $aktualnaTablicaRzutow);
     $runda = 10;
     setcookie('runda', $runda);
-    setcookie('mycookie', $iloscKregli);
+    setcookie('wynikOstatniegoRzutu', $iloscKregli);
     
     header("Location: ./view/pages/rzut-page.php");
 }else{    
