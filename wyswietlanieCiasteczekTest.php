@@ -20,3 +20,11 @@ if(isset($_COOKIE['wynik'])){
 }else{
     echo 'ciasteczko wynik jest wyzerowane';
 }
+
+echo "<br>";
+
+if(isset($_COOKIE['tablicaWynikow'])){ 
+    echo $_COOKIE['tablicaWynikow'];
+}else{
+    echo 'ciasteczko wynik jest wyzerowane';
+}

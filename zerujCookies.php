@@ -1,10 +1,11 @@
 <?php
     $zerowanieWartosciCookies = null;
     setcookie('mycookie', $zerowanieWartosciCookies);
-    setcookie('runda', $zerowanieWartosciCookies);
+    setcookie('runda', 1);
     setcookie('wynik', $zerowanieWartosciCookies);
+    setcookie('tablicaWynikow', $zerowanieWartosciCookies);
     
-    if(!isset($_COOKIE['mycookie']) && !isset($_COOKIE['runda']) && !isset($_COOKIE['wynik'])){
+    if(!isset($_COOKIE['mycookie']) && isset($_COOKIE['runda']) == 1 && !isset($_COOKIE['wynik']) && !isset($_COOKIE['tablicaWynikow'])){
         header("Location: ./view/pages/rzut-page.php");
     }else{
         header("Location: ./zerujCookies.php");
