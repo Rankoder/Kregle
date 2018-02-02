@@ -58,12 +58,13 @@ for ($i = 0; $i < 2; $i++) {
 $listOfValuesInJsonFormat = json_encode($listOfValues);
 
 
-setcookie('mycookie', $listOfValuesInJsonFormat);
+setcookie('mycookie', $listOfValuesInJsonFormat, "localhost/kregle");
 ECHO "<br>";
 echo "Stara tablica: " . $oldListOfValuesInJsonFormat . "<br>";
 echo "Nowa Tablica: " . $listOfValuesInJsonFormat . "<br>";
 
+
 $numerRundy = ($gra->numerTury() + 1);
 setcookie('runda', $numerRundy);
-header("Location: ../view/pages/rzut-page.php");
+//header("Location: ../view/pages/rzut-page.php");
 //header("Location: ../view/pages/wynik-page.php");

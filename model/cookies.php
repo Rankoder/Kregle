@@ -30,3 +30,4 @@ setcookie('mycookie', $listOfValuesInJsonFormat);
 
 echo "Stara tablica: " . $oldListOfValuesInJsonFormat . "<br>";
 echo "Nowa Tablica: " . $listOfValuesInJsonFormat . "<br>";
+echo $_COOKIE["wynik"];
