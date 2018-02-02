@@ -3,7 +3,7 @@
             <h1 class="cover-heading">Zagrasz w kręgle ?</h1>
             <p class="lead">Spróbuj i Ty swojego szczęści w próbie osiągniecią SUPER STRIKE !!!</p>
             <p class="lead">
-            <form  action="../model/zerujCookies.php" method="post">
+            <form  action="../zerujCookies.php" method="post">
                     <input type="submit" value="Rozpocznij Gre"/>
                 </form>
             </p>
